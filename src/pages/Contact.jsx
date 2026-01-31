@@ -1,7 +1,7 @@
 export default function Contact() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-20">
-      <h1 className="text-5xl font-extrabold mb-4">
+      <h1 className="text-5xl font-extrabold mb-4 text-base-content">
         Contact <span className="text-primary">Us</span>
       </h1>
       <p className="text-xl text-base-content/80 mb-10">
@@ -14,11 +14,11 @@ export default function Contact() {
               <span className="text-2xl">📧</span>
               <span>Email: support@turfhub.com</span>
             </li>
-            <li className="flex items-center gap-3">
+            <li className="flex items-center gap-3 text-base-content">
               <span className="text-2xl">📱</span>
               <span>Phone: +880 1XXX-XXXXXX</span>
             </li>
-            <li className="flex items-center gap-3">
+            <li className="flex items-center gap-3 text-base-content">
               <span className="text-2xl">📍</span>
               <span>Address: Dhaka, Bangladesh</span>
             </li>

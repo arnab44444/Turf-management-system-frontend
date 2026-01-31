@@ -5,7 +5,7 @@ export default function AdminTurfs() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6">All Turfs</h2>
+      <h2 className="text-2xl font-bold mb-6 text-base-content">All Turfs</h2>
       <div className="overflow-x-auto">
         <table className="table">
           <thead>

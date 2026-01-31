@@ -106,15 +106,15 @@ export default function EditTurf() {
   return (
     <div className="max-w-3xl">
       <div className="mb-8">
-        <h2 className="text-3xl font-extrabold">Edit Turf</h2>
+        <h2 className="text-3xl font-extrabold text-base-content">Edit Turf</h2>
         <p className="text-base-content/70 mt-1">Update your turf and its sports sections.</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* Basic Info */}
-        <div className="card bg-white shadow-lg border border-[#C8E6C9]/50 overflow-hidden rounded-xl">
+        <div className="card bg-base-100 shadow-lg border border-base-200 overflow-hidden rounded-xl">
           <div className="card-body">
-            <h3 className="text-lg font-bold mb-4">Basic Info</h3>
+            <h3 className="text-lg font-bold mb-4 text-base-content">Basic Info</h3>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="form-control sm:col-span-2 lg:col-span-1">
                 <label className="label py-1">
@@ -190,7 +190,7 @@ export default function EditTurf() {
         {/* Sports Sections */}
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-bold">Sports Sections</h3>
+            <h3 className="text-lg font-bold text-base-content">Sports Sections</h3>
             <button type="button" className="btn btn-sm btn-outline btn-primary" onClick={addSection}>
               + Add Section
             </button>
@@ -200,7 +200,7 @@ export default function EditTurf() {
               <div key={i} className="card bg-white shadow-md border border-[#C8E6C9]/50 overflow-hidden rounded-xl">
                 <div className="card-body">
                   <div className="flex flex-wrap justify-between items-center gap-2 mb-4">
-                    <h4 className="font-semibold">Section {i + 1}</h4>
+                    <h4 className="font-semibold text-base-content">Section {i + 1}</h4>
                     {form.sections.length > 1 && (
                       <button type="button" className="btn btn-sm btn-ghost text-error" onClick={() => removeSection(i)}>
                         Remove

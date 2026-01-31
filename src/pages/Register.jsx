@@ -34,10 +34,10 @@ export default function Register() {
   };
 
   return (
-    <div className="card bg-white shadow-2xl border border-[#C8E6C9]/50 rounded-xl w-full">
+    <div className="card bg-base-100 shadow-2xl border border-base-200 rounded-2xl w-full">
       <div className="card-body p-8 md:p-10">
-        <h2 className="text-3xl font-extrabold text-center mb-2" style={{ color: "#14532D" }}>Register</h2>
-        <p className="text-center text-sm mb-6" style={{ color: "#1F2937", opacity: 0.8 }}>Create your TurfHub account</p>
+        <h2 className="text-3xl font-extrabold text-center mb-2 text-base-content">Register</h2>
+        <p className="text-center text-sm mb-6 text-base-content/80">Create your MYturf account</p>
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           {error && (
             <div className="alert alert-error text-sm">
@@ -46,7 +46,7 @@ export default function Register() {
           )}
           <div className="form-control w-full">
             <label className="label py-1">
-              <span className="label-text font-medium" style={{ color: "#14532D" }}>Name</span>
+              <span className="label-text font-medium text-base-content">Name</span>
             </label>
             <input
               type="text"
@@ -59,7 +59,7 @@ export default function Register() {
           </div>
           <div className="form-control w-full">
             <label className="label py-1">
-              <span className="label-text font-medium" style={{ color: "#14532D" }}>Email</span>
+              <span className="label-text font-medium text-base-content">Email</span>
             </label>
             <input
               type="email"
@@ -72,7 +72,7 @@ export default function Register() {
           </div>
           <div className="form-control w-full">
             <label className="label py-1">
-              <span className="label-text font-medium" style={{ color: "#14532D" }}>Password</span>
+              <span className="label-text font-medium text-base-content">Password</span>
             </label>
             <input
               type="password"
@@ -86,7 +86,7 @@ export default function Register() {
           </div>
           <div className="form-control w-full">
             <label className="label py-1">
-              <span className="label-text font-medium" style={{ color: "#14532D" }}>Register as</span>
+              <span className="label-text font-medium text-base-content">Register as</span>
             </label>
             <select
               className="select select-bordered w-full"
@@ -97,7 +97,7 @@ export default function Register() {
               <option value="owner">Turf Owner</option>
             </select>
             {role === "owner" && (
-              <p className="text-xs mt-1" style={{ color: "#F97316" }}>Owner accounts need admin approval</p>
+              <p className="text-xs mt-1 text-warning">Owner accounts need admin approval</p>
             )}
           </div>
           <button
@@ -109,9 +109,9 @@ export default function Register() {
             {loading ? "Registering..." : "Register"}
           </button>
         </form>
-        <p className="text-center text-sm mt-6" style={{ color: "#1F2937", opacity: 0.8 }}>
+        <p className="text-center text-sm mt-6 text-base-content/80">
           Already have an account?{" "}
-          <Link to="/auth/login" className="link font-medium" style={{ color: "#2E7D32" }}>
+          <Link to="/auth/login" className="link font-medium text-primary">
             Login
           </Link>
         </p>

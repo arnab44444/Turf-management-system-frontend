@@ -14,7 +14,8 @@ export default function AllTurfs() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       <div className="mb-10">
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-2">
+        <p className="text-primary font-semibold tracking-wide mb-2">Browse</p>
+        <h1 className="text-4xl md:text-5xl font-extrabold mb-2 text-base-content">
           All <span className="text-primary">Turfs</span>
         </h1>
         <p className="text-lg text-base-content/70">
@@ -28,7 +29,7 @@ export default function AllTurfs() {
         </div>
       )}
 
-      <div className="card bg-white p-6 mb-10 shadow-lg rounded-xl border border-[#C8E6C9]/50">
+      <div className="card bg-base-100 p-6 mb-10 shadow-xl rounded-2xl border border-base-200">
         <Form method="get" action="/all-turfs" className="flex flex-wrap gap-4 items-end">
           <div className="form-control flex-1 min-w-[200px]">
             <label className="label">
@@ -55,7 +56,7 @@ export default function AllTurfs() {
               <option value="volleyball">Volleyball</option>
             </select>
           </div>
-          <button type="submit" className="btn btn-primary font-semibold">
+          <button type="submit" className="btn btn-primary font-semibold bg-primary text-primary-content">
             Apply Filters
           </button>
           </Form>
@@ -71,7 +72,7 @@ export default function AllTurfs() {
           <Link
             key={turf._id}
             to={sectionType ? `/turfs/${turf._id}?sport=${sectionType}` : `/turfs/${turf._id}`}
-            className="group card bg-white shadow-lg hover:shadow-2xl border border-[#C8E6C9]/50 overflow-hidden card-hover rounded-xl"
+            className="group card bg-base-100 shadow-lg hover:shadow-2xl border border-base-200 overflow-hidden card-hover rounded-xl"
           >
             <figure className="overflow-hidden">
               <img
@@ -84,7 +85,7 @@ export default function AllTurfs() {
               </div>
             </figure>
             <div className="card-body">
-              <h3 className="card-title text-xl" style={{ color: "#14532D" }}>{turf.name}</h3>
+              <h3 className="card-title text-xl text-base-content">{turf.name}</h3>
               <p className="text-base-content/70">{turf.location}, {turf.city}</p>
             </div>
           </Link>

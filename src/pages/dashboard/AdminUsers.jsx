@@ -55,7 +55,7 @@ export default function AdminUsers() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6">Users</h2>
+      <h2 className="text-2xl font-bold mb-6 text-base-content">Users</h2>
       <div className="overflow-x-auto">
         <table className="table">
           <thead>

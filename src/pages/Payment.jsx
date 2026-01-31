@@ -63,14 +63,14 @@ export default function Payment() {
       </h1>
       <div className="card bg-white shadow-xl border border-[#C8E6C9]/50 rounded-xl">
         <div className="card-body">
-          <h2 className="card-title text-xl">{turf.name}</h2>
+          <h2 className="card-title text-xl text-base-content">{turf.name}</h2>
           <p className="text-base-content/70">{section.name}</p>
           <div className="divider" />
           <div className="space-y-2">
             <p><span className="font-medium">Date:</span> {date}</p>
             <p><span className="font-medium">Time:</span> {slot.startTime} - {slot.endTime}</p>
             <p><span className="font-medium">Duration:</span> {totalHours} hour(s)</p>
-            <p className="text-2xl font-bold mt-4">Total: ৳{totalAmount}</p>
+            <p className="text-2xl font-bold mt-4 text-base-content">Total: ৳{totalAmount}</p>
           </div>
           <div className="divider" />
           <p className="text-sm text-base-content/70">Pay securely with Stripe (card, Apple Pay, Google Pay)</p>

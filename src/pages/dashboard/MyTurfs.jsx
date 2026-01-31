@@ -41,7 +41,7 @@ export default function MyTurfs() {
               />
             </figure>
             <div className="card-body">
-              <h3 className="card-title">{t.name}</h3>
+              <h3 className="card-title text-base-content">{t.name}</h3>
               <p className="text-base-content/70 text-sm">{t.location}</p>
               <Link
                 to={`/dashboard/edit-turf/${t._id}`}
@@ -55,7 +55,7 @@ export default function MyTurfs() {
       </div>
       {turfs.length === 0 && (
         <div className="text-center py-16 bg-white rounded-xl border border-[#C8E6C9]/50">
-          <p className="text-lg" style={{ color: "#1F2937" }}>No turfs yet.</p>
+          <p className="text-lg text-base-content">No turfs yet.</p>
           <Link to="/dashboard/add-turf" className="btn mt-4" style={{ backgroundColor: "#FFB703", color: "#14532D", border: "none" }}>Add one</Link>
         </div>
       )}

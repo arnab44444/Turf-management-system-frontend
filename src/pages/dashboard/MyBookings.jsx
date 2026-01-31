@@ -38,7 +38,7 @@ export default function MyBookings() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6">My Bookings</h2>
+      <h2 className="text-2xl font-bold mb-6 text-base-content">My Bookings</h2>
       <div className="overflow-x-auto">
         <table className="table">
           <thead>

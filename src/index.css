@@ -62,6 +62,8 @@
   --radius-box: 0.75rem;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 @layer base {
   * {
     @apply scroll-smooth;
@@ -69,6 +71,7 @@
   body {
     @apply antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold tracking-tight;

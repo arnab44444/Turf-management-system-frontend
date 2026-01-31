@@ -17,7 +17,7 @@ export default function Earnings() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6">Earnings</h2>
+      <h2 className="text-2xl font-bold mb-6 text-base-content">Earnings</h2>
       <div className="stats stats-vertical lg:stats-horizontal shadow">
         <div className="stat">
           <div className="stat-title">Today</div>

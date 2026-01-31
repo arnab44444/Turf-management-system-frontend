@@ -6,6 +6,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import AllTurfs from "../pages/AllTurfs";
 import TurfDetails from "../pages/TurfDetails";
+import SectionBooking from "../pages/SectionBooking";
 import PrivateRoute from "../provider/PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import DashboardHome from "../pages/dashboard/DashboardHome";
@@ -60,6 +61,12 @@ const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`${apiUrl}/turfs/${params.id}`).then((r) => (r.ok ? r.json() : null)).catch(() => null),
         element: <TurfDetails />,
+      },
+      {
+        path: "turfs/:id/book/:sectionId",
+        loader: ({ params }) =>
+          fetch(`${apiUrl}/turfs/${params.id}`).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+        element: <SectionBooking />,
       },
       {
         path: "payment",

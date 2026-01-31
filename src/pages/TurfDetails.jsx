@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate, useSearchParams, Link } from "react-router";
+import { toast } from "react-toastify";
 import { useLoaderData } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
@@ -29,52 +30,75 @@ export default function TurfDetails() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const filterSport = searchParams.get("sport");
-  const [selectedSection, setSelectedSection] = useState(null);
-  const [selectedDate, setSelectedDate] = useState("");
-  const [selectedSlot, setSelectedSlot] = useState(null);
-  const [slots, setSlots] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [reviews, setReviews] = useState([]);
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [reviewForm, setReviewForm] = useState({ rating: 5, comment: "" });
+  const [reviewSubmitting, setReviewSubmitting] = useState(false);
+  const [turfData, setTurfData] = useState(turf);
+  const [canReview, setCanReview] = useState(false);
 
-  const allSections = turf?.sections || [];
-  const sections = filterSport
-    ? allSections.filter((s) => s.type === filterSport)
-    : allSections;
+  useEffect(() => {
+    setTurfData(turf);
+  }, [turf]);
 
-  const fetchSlots = async () => {
-    if (!selectedDate || !selectedSection) return;
-    setLoading(true);
-    try {
-      const { data } = await api.get(
-        `/bookings/slots/${turf._id}?date=${selectedDate}&sectionId=${selectedSection._id}`
-      );
-      setSlots(data);
-    } catch (err) {
-      setSlots([]);
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    if (user && turf?._id) {
+      api.get("/bookings/my")
+        .then(({ data }) => {
+          const paidForThisTurf = data.some(
+            (b) => String(b.turfId?._id || b.turfId) === String(turf._id) &&
+              b.paymentStatus === "paid" &&
+              !["rejected", "cancelled"].includes(b.status)
+          );
+          setCanReview(paidForThisTurf);
+        })
+        .catch(() => setCanReview(false));
+    } else {
+      setCanReview(false);
     }
-  };
+  }, [user, turf?._id]);
 
-  const handleBook = () => {
+  useEffect(() => {
+    if (turf?._id) {
+      api.get(`/turfs/${turf._id}/reviews`)
+        .then(({ data }) => setReviews(data))
+        .catch(() => setReviews([]));
+    }
+  }, [turf?._id]);
+
+  const handleSubmitReview = async (e) => {
+    e.preventDefault();
     if (!user) {
       navigate("/auth/login");
       return;
     }
-    if (!selectedDate || !selectedSlot || !selectedSection) return;
-    const totalHours = 1;
-    const totalAmount = selectedSection.pricePerHour * totalHours;
-    navigate("/payment", {
-      state: {
-        turf,
-        section: selectedSection,
-        date: selectedDate,
-        slot: selectedSlot,
-        totalHours,
-        totalAmount,
-      },
-    });
+    setReviewSubmitting(true);
+    try {
+      await api.post("/reviews", {
+        turfId: turf._id,
+        rating: reviewForm.rating,
+        comment: reviewForm.comment.trim() || undefined,
+      });
+      const { data } = await api.get(`/turfs/${turf._id}/reviews`);
+      setReviews(data);
+      const { data: turfRes } = await api.get(`/turfs/${turf._id}`);
+      setTurfData(turfRes);
+      setReviewForm({ rating: 5, comment: "" });
+      setShowReviewForm(false);
+      toast.success("Review submitted successfully");
+    } catch (err) {
+      const msg = err?.response?.data?.message || "Failed to submit review.";
+      toast.error(msg);
+      if (err?.response?.status === 403) setShowReviewForm(false);
+    } finally {
+      setReviewSubmitting(false);
+    }
   };
+
+  const allSections = turfData?.sections || turf?.sections || [];
+  const sections = filterSport
+    ? allSections.filter((s) => s.type === filterSport)
+    : allSections;
 
   if (!turf) return <div className="text-center py-20 text-xl">Turf not found</div>;
   if (sections.length === 0) {
@@ -92,10 +116,10 @@ export default function TurfDetails() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       <div className="mb-10">
-        <h1 className="text-4xl md:text-5xl font-extrabold">{turf.name}</h1>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-base-content">{turf.name}</h1>
         <p className="text-lg text-base-content/70 mt-2">{turf.location}, {turf.city}</p>
-        <div className="badge badge-lg mt-2" style={{ backgroundColor: "#2E7D32", color: "white", border: "none" }}>
-          ⭐ {turf.rating || "—"} ({turf.totalReviews || 0} reviews)
+        <div className="badge badge-lg mt-2 bg-primary text-primary-content border-0">
+          ⭐ {(turfData || turf).rating ?? "—"} ({(turfData || turf).totalReviews ?? 0} reviews)
         </div>
       </div>
 
@@ -108,33 +132,27 @@ export default function TurfDetails() {
             <Link to={`/turfs/${turf._id}`} className="btn btn-ghost btn-sm">View all sports</Link>
           )}
         </div>
+        <p className="text-base-content/70 mb-4">Select a section to view slots and book</p>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {sections.map((section) => (
-            <div
+            <Link
               key={section._id}
-              className={`card bg-white shadow-lg cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-xl rounded-xl ${
-                selectedSection?._id === section._id ? "ring-2 ring-[#2E7D32] ring-offset-2" : ""
-              }`}
-              onClick={() => {
-                setSelectedSection(section);
-                setSelectedDate("");
-                setSelectedSlot(null);
-                setSlots([]);
-              }}
+              to={`/turfs/${turf._id}/book/${section._id}`}
+              className="card bg-base-100 shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl rounded-2xl border border-base-200 hover:-translate-y-1"
             >
               <figure className="overflow-hidden">
                 <img
                   src={section.images?.[0] || turf.images?.[0] || "https://placehold.co/400x200/166534/22c55e?text=Section"}
                   alt={section.name}
-                  className="h-44 w-full object-cover hover:scale-105 transition-transform duration-500"
+                  className="h-44 w-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </figure>
               <div className="card-body p-4">
-                <h3 className="card-title text-lg" style={{ color: "#14532D" }}>{section.name}</h3>
-                <span className={`badge badge-sm ${SPORT_BADGE_STYLES[section.type] || SPORT_BADGE_STYLES.other}`}>
+                <h3 className="card-title text-lg text-base-content">{section.name}</h3>
+                <span className={`badge badge-sm w-fit ${SPORT_BADGE_STYLES[section.type] || SPORT_BADGE_STYLES.other}`}>
                   {SECTION_LABELS[section.type] || section.type}
                 </span>
-                <span className="badge bg-[#38BDF8]/20 text-[#0c4a6e] border-none">৳{section.pricePerHour}/hr</span>
+                <span className="badge bg-base-200 text-base-content border-none w-fit font-medium">৳{section.pricePerHour}/hr</span>
                 {section.facilities?.length > 0 && (
                   <div className="flex flex-wrap gap-1 mt-2">
                     {section.facilities.slice(0, 3).map((f, i) => (
@@ -142,93 +160,101 @@ export default function TurfDetails() {
                     ))}
                   </div>
                 )}
+                <span className="text-sm text-primary font-medium mt-2">Book this section →</span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
 
       {turf.description && (
-        <div className="card bg-white p-6 mb-10 shadow-lg rounded-xl">
-          <h3 className="font-bold text-lg mb-2">About</h3>
+        <div className="card bg-base-100 p-6 mb-10 shadow-xl rounded-2xl border border-base-200">
+          <h3 className="font-bold text-lg mb-2 text-base-content">About</h3>
           <p className="text-base-content/80">{turf.description}</p>
         </div>
       )}
 
-      {selectedSection && (
-        <div className="card bg-white shadow-xl rounded-xl">
-          <div className="card-body">
-            <h2 className="card-title text-2xl">Book {selectedSection.name}</h2>
-            {bookingSuccess && (
-              <div className="alert alert-success shadow-md">
-                <span>Booking confirmed! Check your dashboard.</span>
-              </div>
+      <div className="card bg-base-100 shadow-xl rounded-2xl mb-10 border border-base-200">
+        <div className="card-body">
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+            <h2 className="text-2xl font-bold">Reviews</h2>
+            {user && canReview && (
+              <button
+                type="button"
+                className="btn btn-sm font-medium"
+                style={{ backgroundColor: "#FFB703", color: "#14532D", border: "none" }}
+                onClick={() => setShowReviewForm(!showReviewForm)}
+              >
+                {showReviewForm ? "Cancel" : "Write a Review"}
+              </button>
             )}
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text font-medium">Select Date</span>
-              </label>
-              <input
-                type="date"
-                className="input input-bordered w-full max-w-xs"
-                value={selectedDate}
-                onChange={(e) => {
-                  setSelectedDate(e.target.value);
-                  setSelectedSlot(null);
-                  setSlots([]);
-                }}
-                min={new Date().toISOString().split("T")[0]}
-              />
-            </div>
-            {selectedDate && (
-              <>
-                <button
-                  className="btn btn-sm mt-4 w-fit"
-                  style={{ backgroundColor: "#38BDF8", color: "#0c4a6e", border: "none" }}
-                  onClick={fetchSlots}
-                  disabled={loading}
-                >
-                  {loading ? "Loading..." : "Check Availability"}
-                </button>
-                {slots.length > 0 && (
-                  <div className="mt-6">
-                    <label className="label">
-                      <span className="label-text font-medium">Available Slots</span>
-                    </label>
-                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
-                      {slots.map((s, i) => (
-                        <button
-                          key={i}
-                          className={`btn btn-sm ${
-                            selectedSlot?.startTime === s.startTime
-                              ? "border-2 bg-[#FFB703] text-[#14532D] border-[#FFB703] ring-2 ring-[#FFB703] ring-offset-1"
-                              : "border-2 border-[#22C55E] bg-[#f0fdf4] text-[#14532D] hover:bg-[#22C55E]/20"
-                          }`}
-                          onClick={() => setSelectedSlot(s)}
-                        >
-                          {s.startTime}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                {!loading && slots.length === 0 && selectedDate && (
-                  <p className="text-base-content/70 mt-4">No slots available. Try another date.</p>
-                )}
-                {selectedSlot && (
-                  <div className="mt-6 p-6 rounded-xl" style={{ backgroundColor: "#E8F5E9" }}>
-                    <p className="font-medium">Selected: {selectedDate} at {selectedSlot.startTime} - {selectedSlot.endTime}</p>
-                    <p className="text-xl font-bold mt-2">Total: ৳{selectedSection.pricePerHour} (1 hr)</p>
-                    <button className="btn btn-lg mt-4 font-semibold shadow-lg" style={{ backgroundColor: "#FFB703", color: "#14532D", border: "none" }} onClick={handleBook}>
-                      Proceed to Payment
-                    </button>
-                  </div>
-                )}
-              </>
+            {user && !canReview && (
+              <p className="text-sm text-base-content/60">Book and pay for a slot to leave a review</p>
+            )}
+            {!user && (
+              <p className="text-sm text-base-content/60">
+                <Link to="/auth/login" className="link" style={{ color: "#2E7D32" }}>Log in</Link> to write a review
+              </p>
             )}
           </div>
+          {showReviewForm && (
+            <form onSubmit={handleSubmitReview} className="mb-6 p-4 rounded-xl bg-base-200">
+              <div className="form-control mb-3">
+                <label className="label py-1">
+                  <span className="label-text font-medium">Rating</span>
+                </label>
+                <div className="flex gap-1">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      type="button"
+                      className="text-2xl focus:outline-none"
+                      onClick={() => setReviewForm((f) => ({ ...f, rating: star }))}
+                      aria-label={`${star} star${star > 1 ? "s" : ""}`}
+                    >
+                      {star <= reviewForm.rating ? "⭐" : "☆"}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="form-control mb-3">
+                <label className="label py-1">
+                  <span className="label-text font-medium">Comment (optional)</span>
+                </label>
+                <textarea
+                  className="textarea textarea-bordered w-full"
+                  rows={3}
+                  placeholder="Share your experience..."
+                  value={reviewForm.comment}
+                  onChange={(e) => setReviewForm((f) => ({ ...f, comment: e.target.value }))}
+                />
+              </div>
+              <button
+                type="submit"
+                className="btn btn-primary font-medium"
+                disabled={reviewSubmitting}
+              >
+                {reviewSubmitting ? "Submitting..." : "Submit Review"}
+              </button>
+            </form>
+          )}
+          {reviews.length > 0 ? (
+            <div className="space-y-4">
+              {reviews.map((r) => (
+                <div key={r._id} className="p-4 rounded-lg border border-base-200">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="font-medium text-base-content">{r.userId?.name || "Anonymous"}</span>
+                    <span className="text-yellow-500">{"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}</span>
+                  </div>
+                  {r.comment && <p className="text-base-content/80 text-sm">{r.comment}</p>}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-base-content/60">No reviews yet. Be the first to review!</p>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

@@ -32,10 +32,10 @@ export default function Login() {
   };
 
   return (
-    <div className="card bg-white shadow-2xl border border-[#C8E6C9]/50 rounded-xl w-full">
+    <div className="card bg-base-100 shadow-2xl border border-base-200 rounded-2xl w-full">
       <div className="card-body p-8 md:p-10">
-        <h2 className="text-3xl font-extrabold text-center mb-2" style={{ color: "#14532D" }}>Login</h2>
-        <p className="text-center text-sm mb-6" style={{ color: "#1F2937", opacity: 0.8 }}>Welcome back to TurfHub</p>
+        <h2 className="text-3xl font-extrabold text-center mb-2 text-base-content">Login</h2>
+        <p className="text-center text-sm mb-6 text-base-content/80">Welcome back to MYturf</p>
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           {error && (
             <div className="alert alert-error text-sm">
@@ -44,7 +44,7 @@ export default function Login() {
           )}
           <div className="form-control w-full">
             <label className="label py-1">
-              <span className="label-text font-medium" style={{ color: "#14532D" }}>Email</span>
+              <span className="label-text font-medium text-base-content">Email</span>
             </label>
             <input
               type="email"
@@ -57,7 +57,7 @@ export default function Login() {
           </div>
           <div className="form-control w-full">
             <label className="label py-1">
-              <span className="label-text font-medium" style={{ color: "#14532D" }}>Password</span>
+              <span className="label-text font-medium text-base-content">Password</span>
             </label>
             <input
               type="password"
@@ -77,9 +77,9 @@ export default function Login() {
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
-        <p className="text-center text-sm mt-6" style={{ color: "#1F2937", opacity: 0.8 }}>
+        <p className="text-center text-sm mt-6 text-base-content/80">
           Don&apos;t have an account?{" "}
-          <Link to="/auth/register" className="link font-medium" style={{ color: "#2E7D32" }}>
+          <Link to="/auth/register" className="link font-medium text-primary">
             Register
           </Link>
         </p>

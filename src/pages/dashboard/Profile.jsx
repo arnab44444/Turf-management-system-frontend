@@ -26,7 +26,7 @@ export default function Profile() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6">Profile</h2>
+      <h2 className="text-2xl font-bold mb-6 text-base-content">Profile</h2>
       <form onSubmit={handleSubmit} className="max-w-md space-y-4">
         <div className="form-control">
           <label className="label">Name</label>

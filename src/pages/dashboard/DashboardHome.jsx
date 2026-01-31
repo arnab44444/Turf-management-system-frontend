@@ -25,7 +25,7 @@ export default function DashboardHome() {
 
   return (
     <div>
-      <h1 className="text-4xl font-extrabold mb-2">
+      <h1 className="text-4xl font-extrabold mb-2 text-base-content">
         Welcome back, <span className="text-primary">{user?.name || "User"}</span>!
       </h1>
       <p className="text-base-content/70 mb-10">Quick access to your dashboard.</p>
@@ -37,7 +37,7 @@ export default function DashboardHome() {
             className={`card bg-base-100 shadow-lg hover:shadow-xl border border-base-200 transition-all hover:-translate-y-0.5`}
           >
             <div className="card-body">
-              <h3 className="card-title">{item.label}</h3>
+              <h3 className="card-title text-base-content">{item.label}</h3>
               <p className="text-base-content/70 text-sm">{item.desc}</p>
               <div className="card-actions mt-4">
                 <button className={`btn ${item.btn}`}>Go →</button>

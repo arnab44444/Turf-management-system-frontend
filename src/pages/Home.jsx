@@ -1,47 +1,83 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import { useLoaderData } from "react-router";
 
+const HERO_IMAGES = [
+  "https://i.ibb.co/PZ44pVdf/indoor-soccer-football-field.jpg",
+  "https://i.ibb.co/6cM97rN0/football-field-at-sunset.jpg",
+  "https://i.ibb.co/DPVFVQvp/soccer-sport-environment-filed-23-2151891706.jpg",
+];
+
 export default function Home() {
   const turfs = useLoaderData() || [];
+  const [slideIndex, setSlideIndex] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      setSlideIndex((i) => (i + 1) % HERO_IMAGES.length);
+    }, 5000);
+    return () => clearInterval(t);
+  }, []);
 
   return (
     <div>
-      <section className="hero min-h-[85vh] relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#2E7D32]/20 via-[#F1F8F4] to-[#38BDF8]/20" />
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%232E7D32\' fill-opacity=\'0.06\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50" />
-        <div className="hero-content text-center relative z-10 py-20">
+      <section className="hero min-h-[90vh] relative overflow-hidden">
+        {HERO_IMAGES.map((src, i) => (
+          <div
+            key={src}
+            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-700 ${
+              i === slideIndex ? "opacity-100 z-0" : "opacity-0 z-0"
+            }`}
+            style={{ backgroundImage: `url(${src})` }}
+          />
+        ))}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60 z-[1]" />
+        <div className="hero-content text-center relative z-10 py-24 px-4">
           <div className="max-w-4xl animate-fade-in">
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6" style={{ color: "#14532D" }}>
-              Book Your Perfect <span style={{ color: "#2E7D32" }}>Turf</span>
+            <p className="text-[#FFB703] font-semibold tracking-widest uppercase mb-4">Premium Turf Booking</p>
+            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 text-white">
+              Book Your <span className="text-[#FFB703]">Perfect</span> Turf
             </h1>
-            <p className="text-xl md:text-2xl mb-10 max-w-2xl mx-auto leading-relaxed" style={{ color: "#1F2937" }}>
-              Find and book the best turfs in your city. Football, cricket, badminton and more — quick, easy, and affordable.
+            <p className="text-xl md:text-2xl mb-10 max-w-2xl mx-auto leading-relaxed text-white/90">
+              Find and book the best turfs in your city. Football, cricket, badminton and more — quick, easy, and premium.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/all-turfs"
-                className="btn btn-lg font-bold shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all duration-300"
-                style={{ backgroundColor: "#FFB703", color: "#14532D", border: "none" }}
+                className="btn btn-lg font-bold shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all duration-300 bg-[#FFB703] text-[#0D2818] border-0 hover:bg-[#FFC933]"
               >
                 Explore Turfs
               </Link>
               <Link
                 to="/about"
-                className="btn btn-outline btn-lg font-semibold border-2 hover:bg-[#E8F5E9]"
-                style={{ borderColor: "#2E7D32", color: "#14532D" }}
+                className="btn btn-outline btn-lg font-semibold border-2 border-white/60 text-white hover:bg-white/10 hover:border-white"
               >
                 How It Works
               </Link>
             </div>
           </div>
         </div>
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          {HERO_IMAGES.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              aria-label={`Go to slide ${i + 1}`}
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                i === slideIndex ? "bg-[#FFB703] scale-125" : "bg-white/60 hover:bg-white/80"
+              }`}
+              onClick={() => setSlideIndex(i)}
+            />
+          ))}
+        </div>
       </section>
 
       <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4" style={{ color: "#14532D" }}>
-              Popular <span style={{ color: "#2E7D32" }}>Turfs</span>
+            <p className="text-primary font-semibold tracking-wide mb-2">Discover</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-base-content">
+              Popular <span className="text-primary">Turfs</span>
             </h2>
             <p className="text-lg text-base-content/70 max-w-xl mx-auto">
               Each turf is an arena. Click to see its sports sections and book your slot.
@@ -52,21 +88,22 @@ export default function Home() {
               <Link
                 key={turf._id}
                 to={`/turfs/${turf._id}`}
-                className="group card bg-white shadow-lg hover:shadow-2xl border border-[#C8E6C9]/50 overflow-hidden card-hover animate-slide-up rounded-xl"
+                className="group card bg-base-100 shadow-xl hover:shadow-2xl border border-base-200 overflow-hidden card-hover animate-slide-up rounded-2xl"
                 style={{ animationDelay: `${i * 50}ms` }}
               >
-                <figure className="overflow-hidden">
+                <figure className="overflow-hidden relative">
                   <img
                     src={turf.images?.[0] || turf.sections?.[0]?.images?.[0] || "https://placehold.co/400x240/166534/22c55e?text=Turf"}
                     alt={turf.name}
-                    className="h-52 w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="h-56 w-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
-                  <div className="absolute top-3 right-3 badge badge-primary badge-lg shadow-md">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute top-4 right-4 badge badge-lg bg-[#FFB703] text-[#0D2818] border-0 shadow-lg">
                     ⭐ {turf.rating || "—"}
                   </div>
                 </figure>
-                <div className="card-body">
-                  <h3 className="card-title text-xl transition-colors" style={{ color: "#14532D" }}>{turf.name}</h3>
+                <div className="card-body p-5">
+                  <h3 className="card-title text-xl text-base-content">{turf.name}</h3>
                   <p className="text-base-content/70">{turf.location}</p>
                 </div>
               </Link>
@@ -81,8 +118,7 @@ export default function Home() {
             <div className="text-center mt-12">
               <Link
                 to="/all-turfs"
-                className="btn btn-outline font-semibold"
-                style={{ borderColor: "#2E7D32", color: "#14532D" }}
+                className="btn btn-outline btn-primary font-semibold"
               >
                 View All Turfs
               </Link>
@@ -91,9 +127,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20" style={{ backgroundColor: "#E8F5E9" }}>
+      <section className="py-20 bg-base-200">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-4xl font-extrabold text-center mb-14">How It Works</h2>
+          <h2 className="text-4xl font-extrabold text-center mb-14 text-base-content">How It Works</h2>
           <div className="grid md:grid-cols-3 gap-10">
             {[
               { step: 1, title: "Search", desc: "Find turfs by location, sport, and availability", icon: "🔍" },
@@ -102,12 +138,12 @@ export default function Home() {
             ].map((item) => (
               <div
                 key={item.step}
-                className="flex flex-col items-center text-center p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-shadow"
+                className="flex flex-col items-center text-center p-8 rounded-2xl bg-base-100 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1"
               >
                 <div className="text-5xl mb-4">{item.icon}</div>
-                <div className="text-4xl font-bold mb-2" style={{ color: "#2E7D32" }}>{item.step}</div>
-                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                <p style={{ color: "#1F2937" }}>{item.desc}</p>
+                <div className="text-4xl font-bold mb-2 text-primary">{item.step}</div>
+                <h3 className="text-xl font-bold mb-2 text-base-content">{item.title}</h3>
+                <p className="text-base-content/80">{item.desc}</p>
               </div>
             ))}
           </div>

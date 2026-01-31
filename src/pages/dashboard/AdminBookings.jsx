@@ -10,7 +10,7 @@ export default function AdminBookings() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6">All Bookings</h2>
+      <h2 className="text-2xl font-bold mb-6 text-base-content">All Bookings</h2>
       <p className="text-base-content/60">Admin view - shows owner bookings. Expand to show all.</p>
       <div className="overflow-x-auto mt-4">
         <table className="table">
