@@ -197,7 +197,7 @@ export default function EditTurf() {
           </div>
           <div className="space-y-6">
             {form.sections.map((section, i) => (
-              <div key={i} className="card bg-white shadow-md border border-[#C8E6C9]/50 overflow-hidden rounded-xl">
+              <div key={i} className="card bg-base-100 shadow-md border border-base-200 overflow-hidden rounded-xl">
                 <div className="card-body">
                   <div className="flex flex-wrap justify-between items-center gap-2 mb-4">
                     <h4 className="font-semibold text-base-content">Section {i + 1}</h4>

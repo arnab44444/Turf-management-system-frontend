@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, useSearchParams, Link } from "react-router";
+import { getImageUrl } from "../utils/imageUrl";
 import { toast } from "react-toastify";
 import { useLoaderData } from "react-router";
 import { useContext } from "react";
@@ -142,7 +143,7 @@ export default function TurfDetails() {
             >
               <figure className="overflow-hidden">
                 <img
-                  src={section.images?.[0] || turf.images?.[0] || "https://placehold.co/400x200/166534/22c55e?text=Section"}
+                  src={getImageUrl(section.images?.[0] || turf.images?.[0]) || "https://placehold.co/400x200/166534/22c55e?text=Section"}
                   alt={section.name}
                   className="h-44 w-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -201,7 +202,7 @@ export default function TurfDetails() {
             <form onSubmit={handleSubmitReview} className="mb-6 p-4 rounded-xl bg-base-200">
               <div className="form-control mb-3">
                 <label className="label py-1">
-                  <span className="label-text font-medium">Rating</span>
+                  <span className="label-text font-medium text-base-content">Rating</span>
                 </label>
                 <div className="flex gap-1">
                   {[1, 2, 3, 4, 5].map((star) => (
@@ -219,7 +220,7 @@ export default function TurfDetails() {
               </div>
               <div className="form-control mb-3">
                 <label className="label py-1">
-                  <span className="label-text font-medium">Comment (optional)</span>
+                  <span className="label-text font-medium text-base-content">Comment (optional)</span>
                 </label>
                 <textarea
                   className="textarea textarea-bordered w-full"

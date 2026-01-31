@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
+import { getImageUrl } from "../utils/imageUrl";
 import { useLoaderData } from "react-router";
 
 const HERO_IMAGES = [
@@ -93,7 +94,7 @@ export default function Home() {
               >
                 <figure className="overflow-hidden relative">
                   <img
-                    src={turf.images?.[0] || turf.sections?.[0]?.images?.[0] || "https://placehold.co/400x240/166534/22c55e?text=Turf"}
+                    src={getImageUrl(turf.images?.[0] || turf.sections?.[0]?.images?.[0]) || "https://placehold.co/400x240/166534/22c55e?text=Turf"}
                     alt={turf.name}
                     className="h-56 w-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />

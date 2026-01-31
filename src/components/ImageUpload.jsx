@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import api from "../api/axios";
+import { getImageUrl } from "../utils/imageUrl";
 
 export default function ImageUpload({ value = [], onChange, maxCount = 5 }) {
   const [uploading, setUploading] = useState(false);
@@ -53,7 +54,7 @@ export default function ImageUpload({ value = [], onChange, maxCount = 5 }) {
         {images.map((url, i) => (
           <div key={i} className="relative group">
             <div className="w-28 h-28 rounded-xl overflow-hidden border-2 border-base-200 shadow-sm bg-base-200">
-              <img src={url} alt="" className="w-full h-full object-cover" />
+              <img src={getImageUrl(url, { width: 400 }) || url} alt="" className="w-full h-full object-cover" />
             </div>
             <button
               type="button"

@@ -101,7 +101,7 @@ export default function AddTurf() {
       <div className="alert alert-info mb-8 shadow-sm">
         <div>
           <p className="font-semibold">Turf vs Sections</p>
-          <p className="text-sm opacity-90">Add your turf (e.g., GEC Arena) as a single entity. Then add the sports sections (Football, Cricket, etc.) with their own price and images.</p>
+          <p className="text-sm text-base-content/90">Add your turf (e.g., GEC Arena) as a single entity. Then add the sports sections (Football, Cricket, etc.) with their own price and images.</p>
         </div>
       </div>
 

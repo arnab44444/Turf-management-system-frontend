@@ -28,15 +28,15 @@ export default function MyReviews() {
             const turf = b.turfId;
             const reviewed = turf && reviewedTurfIds.has(String(turf._id));
             return (
-              <div key={b._id} className="card bg-white shadow-lg border border-base-200">
+              <div key={b._id} className="card bg-base-100 shadow-lg border border-base-200">
                 <div className="card-body flex-row flex-wrap items-center justify-between gap-4">
                   <div>
-                    <h3 className="font-bold text-lg">{turf?.name}</h3>
+                    <h3 className="font-bold text-lg text-base-content">{turf?.name}</h3>
                     <p className="text-sm text-base-content/60">{turf?.location}</p>
                   </div>
                   <Link
                     to={`/turfs/${turf?._id}`}
-                    className={`btn btn-sm font-medium ${reviewed ? "btn-primary" : "bg-[#FFB703] text-[#14532D] border-0"}`}
+                    className={`btn btn-sm font-medium ${reviewed ? "btn-primary" : "btn-warning"}`}
                   >
                     {reviewed ? "View / Edit Review" : "Write Review"}
                   </Link>

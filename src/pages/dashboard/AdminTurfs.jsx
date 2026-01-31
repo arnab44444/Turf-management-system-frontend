@@ -7,9 +7,9 @@ export default function AdminTurfs() {
     <div>
       <h2 className="text-2xl font-bold mb-6 text-base-content">All Turfs</h2>
       <div className="overflow-x-auto">
-        <table className="table">
+        <table className="table table-zebra">
           <thead>
-            <tr>
+            <tr className="text-base-content">
               <th>Name</th>
               <th>Location</th>
               <th>Price</th>
@@ -18,7 +18,7 @@ export default function AdminTurfs() {
           </thead>
           <tbody>
             {turfs.map((t) => (
-              <tr key={t._id}>
+              <tr key={t._id} className="text-base-content">
                 <td>{t.name}</td>
                 <td>{t.location}, {t.city}</td>
                 <td>৳{t.minPrice || t.sections?.[0]?.pricePerHour || "—"}/hr</td>

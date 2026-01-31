@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router";
+import { getImageUrl } from "../utils/imageUrl";
 import { useLoaderData } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
@@ -107,7 +108,7 @@ export default function SectionBooking() {
       <div className="card bg-base-100 shadow-xl rounded-2xl border border-base-200 overflow-hidden mb-6">
         <figure className="h-48 md:h-56">
           <img
-            src={section.images?.[0] || turf.images?.[0] || "https://placehold.co/800x300/166534/22c55e?text=Section"}
+            src={getImageUrl(section.images?.[0] || turf.images?.[0]) || "https://placehold.co/800x300/166534/22c55e?text=Section"}
             alt={section.name}
             className="w-full object-cover"
           />
@@ -136,7 +137,7 @@ export default function SectionBooking() {
           <h2 className="text-xl font-bold mb-4 text-base-content">Select Date & Time</h2>
           <div className="form-control mb-4">
             <label className="label">
-              <span className="label-text font-medium">Date</span>
+              <span className="label-text font-medium text-base-content">Date</span>
             </label>
             <input
               type="date"
@@ -164,7 +165,7 @@ export default function SectionBooking() {
               {displaySlots.length > 0 && (
                 <div className="mb-6">
                   <label className="label">
-                    <span className="label-text font-medium">Available Slots</span>
+                    <span className="label-text font-medium text-base-content">Available Slots</span>
                   </label>
                   <div className="grid grid-cols-4 sm:grid-cols-5 gap-2">
                     {displaySlots.map((s, i) => (
@@ -173,7 +174,7 @@ export default function SectionBooking() {
                         type="button"
                         className={`btn btn-sm ${
                           selectedSlot?.startTime === s.startTime
-                            ? "bg-[#FFB703] text-[#14532D] border-[#FFB703] ring-2 ring-[#FFB703] ring-offset-1"
+                            ? "bg-primary text-primary-content border-primary ring-2 ring-primary ring-offset-2 ring-offset-base-100"
                             : "border-2 border-primary bg-base-200 text-base-content hover:bg-primary/20"
                         }`}
                         onClick={() => setSelectedSlot(s)}
@@ -189,7 +190,7 @@ export default function SectionBooking() {
               )}
               {selectedSlot && (
                 <div className="p-6 rounded-xl bg-base-200">
-                  <p className="font-medium">Selected: {selectedDate} at {selectedSlot.startTime} - {selectedSlot.endTime}</p>
+                  <p className="font-medium text-base-content">Selected: {selectedDate} at {selectedSlot.startTime} - {selectedSlot.endTime}</p>
                   <p className="text-xl font-bold mt-2 text-base-content">Total: ৳{section.pricePerHour} (1 hr)</p>
                   <button
                     className="btn btn-lg mt-4 w-full sm:w-auto font-semibold"

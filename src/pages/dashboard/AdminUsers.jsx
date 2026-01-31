@@ -57,9 +57,9 @@ export default function AdminUsers() {
     <div>
       <h2 className="text-2xl font-bold mb-6 text-base-content">Users</h2>
       <div className="overflow-x-auto">
-        <table className="table">
+        <table className="table table-zebra">
           <thead>
-            <tr>
+            <tr className="text-base-content">
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>
@@ -69,7 +69,7 @@ export default function AdminUsers() {
           </thead>
           <tbody>
             {users.map((u) => (
-              <tr key={u._id}>
+              <tr key={u._id} className="text-base-content">
                 <td>{u.name}</td>
                 <td>{u.email}</td>
                 <td>{u.role}</td>

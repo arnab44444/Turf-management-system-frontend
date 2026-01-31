@@ -1,4 +1,5 @@
 import { Link, useSearchParams, Form } from "react-router";
+import { getImageUrl } from "../utils/imageUrl";
 import { useLoaderData } from "react-router";
 
 export default function AllTurfs() {
@@ -33,7 +34,7 @@ export default function AllTurfs() {
         <Form method="get" action="/all-turfs" className="flex flex-wrap gap-4 items-end">
           <div className="form-control flex-1 min-w-[200px]">
             <label className="label">
-              <span className="label-text font-medium">City / Area</span>
+              <span className="label-text font-medium text-base-content">City / Area</span>
             </label>
             <input
               type="text"
@@ -45,7 +46,7 @@ export default function AllTurfs() {
           </div>
           <div className="form-control w-full sm:w-48">
             <label className="label">
-              <span className="label-text font-medium">Sport</span>
+              <span className="label-text font-medium text-base-content">Sport</span>
             </label>
             <select name="sectionType" className="select select-bordered w-full" defaultValue={sectionType}>
               <option value="">All sports</option>
@@ -76,7 +77,7 @@ export default function AllTurfs() {
           >
             <figure className="overflow-hidden">
               <img
-                src={turf.images?.[0] || turf.sections?.[0]?.images?.[0] || "https://placehold.co/400x240/166534/22c55e?text=Turf"}
+                src={getImageUrl(turf.images?.[0] || turf.sections?.[0]?.images?.[0]) || "https://placehold.co/400x240/166534/22c55e?text=Turf"}
                 alt={turf.name}
                 className="h-52 w-full object-cover group-hover:scale-105 transition-transform duration-500"
               />

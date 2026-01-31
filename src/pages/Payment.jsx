@@ -58,15 +58,15 @@ export default function Payment() {
 
   return (
     <div className="max-w-lg mx-auto px-4 py-12">
-      <h1 className="text-4xl font-extrabold mb-8">
+      <h1 className="text-4xl font-extrabold mb-8 text-base-content">
         <span className="text-primary">Payment</span>
       </h1>
-      <div className="card bg-white shadow-xl border border-[#C8E6C9]/50 rounded-xl">
+      <div className="card bg-base-100 shadow-xl border border-base-200 rounded-xl">
         <div className="card-body">
           <h2 className="card-title text-xl text-base-content">{turf.name}</h2>
           <p className="text-base-content/70">{section.name}</p>
           <div className="divider" />
-          <div className="space-y-2">
+          <div className="space-y-2 text-base-content">
             <p><span className="font-medium">Date:</span> {date}</p>
             <p><span className="font-medium">Time:</span> {slot.startTime} - {slot.endTime}</p>
             <p><span className="font-medium">Duration:</span> {totalHours} hour(s)</p>

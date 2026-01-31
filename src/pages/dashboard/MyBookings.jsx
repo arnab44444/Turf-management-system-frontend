@@ -40,9 +40,9 @@ export default function MyBookings() {
     <div>
       <h2 className="text-2xl font-bold mb-6 text-base-content">My Bookings</h2>
       <div className="overflow-x-auto">
-        <table className="table">
+        <table className="table table-zebra">
           <thead>
-            <tr>
+            <tr className="text-base-content">
               <th>Turf</th>
               <th>Date</th>
               <th>Time</th>
@@ -58,11 +58,11 @@ export default function MyBookings() {
               <tr key={b._id}>
                 <td>
                   <span>{b.turfId?.name}</span>
-                  {section && <span className="text-xs block opacity-70">{section.name}</span>}
+                  {section && <span className="text-xs block text-base-content/70">{section.name}</span>}
                 </td>
-                <td>{new Date(b.date).toLocaleDateString()}</td>
-                <td>{b.startTime} - {b.endTime}</td>
-                <td>৳{b.totalAmount}</td>
+                <td className="text-base-content">{new Date(b.date).toLocaleDateString()}</td>
+                <td className="text-base-content">{b.startTime} - {b.endTime}</td>
+                <td className="text-base-content">৳{b.totalAmount}</td>
                 <td>
                   <span className={`badge badge-${b.status === "approved" ? "success" : b.status === "pending" ? "warning" : "neutral"}`}>
                     {b.status}

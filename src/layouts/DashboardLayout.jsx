@@ -27,6 +27,8 @@ export default function DashboardLayout() {
     { to: "/dashboard", label: "Overview" },
     { to: "/dashboard/my-turfs", label: "My Turfs" },
     { to: "/dashboard/bookings", label: "Bookings" },
+    { to: "/dashboard/schedule", label: "Schedule" },
+    { to: "/dashboard/customers", label: "Customers" },
     { to: "/dashboard/earnings", label: "Earnings" },
     { to: "/dashboard/profile", label: "Profile" },
   ];
@@ -46,11 +48,11 @@ export default function DashboardLayout() {
     <div className="drawer lg:drawer-open">
       <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col min-h-screen bg-base-100">
-        <div className="navbar shadow-sm lg:hidden bg-base-200">
-          <label htmlFor="dashboard-drawer" className="btn btn-ghost drawer-button text-base-content">
+        <div className="navbar shadow-sm lg:hidden bg-[#0D2818]">
+          <label htmlFor="dashboard-drawer" className="btn btn-ghost drawer-button text-white">
             <span className="text-2xl">≡</span>
           </label>
-          <span className="flex-1 font-bold text-base-content">MYturf</span>
+          <span className="flex-1 font-bold text-white">Turf-Buddy</span>
         </div>
         <div className="flex-1 p-6">
           <Outlet />
@@ -58,16 +60,16 @@ export default function DashboardLayout() {
       </div>
       <div className="drawer-side">
         <label htmlFor="dashboard-drawer" className="drawer-overlay" aria-label="close" />
-        <aside className="w-72 min-h-full border-r border-base-300 bg-base-200">
+        <aside className="dashboard-sidebar w-72 min-h-full border-r border-emerald-900/50">
           <div className="p-6">
-            <Link to="/" className="text-xl font-extrabold hover:opacity-80 transition-opacity text-base-content">
-              MYturf
+            <Link to="/" className="text-xl font-extrabold hover:opacity-80 transition-opacity text-white">
+              Turf-Buddy
             </Link>
-            <p className="text-sm text-base-content/60 capitalize mt-1">{role} Dashboard</p>
+            <p className="text-sm text-emerald-200/80 capitalize mt-1">{role} Dashboard</p>
           </div>
           <ul className="menu p-4 gap-2">
             <li>
-              <Link to="/" className="font-medium rounded-lg hover:bg-primary/20 text-base-content">
+              <Link to="/" className="font-medium rounded-lg hover:bg-emerald-500/20 text-emerald-50">
                 ← Home
               </Link>
             </li>
@@ -75,8 +77,9 @@ export default function DashboardLayout() {
               <li key={item.to}>
                 <NavLink
                   to={item.to}
+                  end={item.to === "/dashboard"}
                   className={({ isActive }) =>
-                    `font-medium rounded-lg ${isActive ? "bg-primary text-primary-content" : "text-base-content hover:bg-primary/20"}`
+                    `font-medium rounded-lg ${isActive ? "bg-emerald-500 text-white" : "text-emerald-50 hover:bg-emerald-500/20"}`
                   }
                 >
                   {item.label}
@@ -84,18 +87,18 @@ export default function DashboardLayout() {
               </li>
             ))}
           </ul>
-          <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-base-300 space-y-2">
+          <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-emerald-900/50 space-y-2">
             <button
               type="button"
               onClick={toggleTheme}
-              className="flex items-center gap-2 p-2 rounded-lg hover:bg-base-200 w-full text-left"
+              className="flex items-center gap-2 p-2 rounded-lg hover:bg-emerald-500/20 w-full text-left text-emerald-50"
             >
               <span className="text-sm font-medium">
                 {isDark ? "🌙 Dark" : "☀️ Light"} mode
               </span>
             </button>
             <button
-              className="btn btn-outline btn-sm w-full"
+              className="btn btn-outline btn-sm w-full border-emerald-400/50 text-emerald-50 hover:bg-emerald-500/20 hover:border-emerald-400"
               onClick={handleLogout}
             >
               Logout

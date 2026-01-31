@@ -21,6 +21,8 @@ import Profile from "../pages/dashboard/Profile";
 import AdminUsers from "../pages/dashboard/AdminUsers";
 import AdminTurfs from "../pages/dashboard/AdminTurfs";
 import Reports from "../pages/dashboard/Reports";
+import Schedule from "../pages/dashboard/Schedule";
+import OwnerCustomers from "../pages/dashboard/OwnerCustomers";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Payment from "../pages/Payment";
@@ -108,6 +110,8 @@ const router = createBrowserRouter([
       { path: "add-turf", element: <AddTurf /> },
       { path: "edit-turf/:id", element: <EditTurf /> },
       { path: "bookings", element: <BookingsPage /> },
+      { path: "schedule", element: <Schedule /> },
+      { path: "customers", element: <OwnerCustomers /> },
       { path: "earnings", element: <Earnings /> },
       { path: "reviews", element: <MyReviews /> },
       { path: "profile", element: <Profile /> },

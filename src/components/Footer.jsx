@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="footer footer-center p-12 text-white" style={{ backgroundColor: "#0D2818" }}>
       <aside className="max-w-md">
         <Link to="/" className="font-extrabold text-2xl tracking-tight hover:text-[#FFB703] transition-colors flex items-center gap-2 justify-center">
-          <span className="text-2xl">⚽</span> MYturf
+          <span className="text-2xl">⚽</span> Turf-Buddy
         </Link>
         <p className="mt-2 text-white/80">
           Premium turf booking. Book your perfect slot. Play your game.
@@ -22,7 +22,7 @@ export default function Footer() {
           </Link>
         </nav>
         <p className="text-sm mt-6 text-white/60">
-          Copyright © {new Date().getFullYear()} MYturf. All rights reserved.
+          Copyright © {new Date().getFullYear()} Turf-Buddy. All rights reserved.
         </p>
       </aside>
     </footer>

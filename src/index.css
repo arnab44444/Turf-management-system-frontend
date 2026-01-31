@@ -121,4 +121,84 @@
   @apply -translate-y-1 shadow-xl;
 }
 
+/* Dashboard sidebar - dark forest green */
+.dashboard-sidebar {
+  background: linear-gradient(180deg, #0D2818 0%, #14532D 50%, #0f3d1f 100%);
+}
+
+/* Auth page - dark green gradient background with subtle texture */
+.auth-page-bg {
+  background: radial-gradient(ellipse at 30% 20%, #1a3d2a 0%, #0f2d1a 40%, #0D2818 70%, #0a1f12 100%);
+  position: relative;
+}
+.auth-page-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 25% 25%, rgba(34, 197, 94, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(34, 197, 94, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Auth card - dark container for login/register */
+.auth-card {
+  background: linear-gradient(145deg, #1e3a2f 0%, #172d24 100%);
+  border: 1px solid rgba(34, 197, 94, 0.15);
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+}
+.auth-card h2 {
+  color: #22C55E !important;
+}
+.auth-card .card-body > p,
+.auth-card .label-text {
+  color: #86efac !important;
+}
+.auth-card .label-text-alt {
+  color: #6ee7b7 !important;
+}
+.auth-card .input,
+.auth-card .select,
+.auth-card .textarea {
+  background-color: #1a2e24 !important;
+  border-color: rgba(34, 197, 94, 0.25) !important;
+  color: #e2e8f0 !important;
+  border-radius: 0.75rem;
+}
+.auth-card .alert-error {
+  background-color: rgba(248, 113, 113, 0.15) !important;
+  border-color: rgba(248, 113, 113, 0.3) !important;
+}
+.auth-card .input::placeholder {
+  color: #94a3b8 !important;
+}
+.auth-card .link {
+  color: #22C55E !important;
+}
+.auth-card .link:hover {
+  color: #4ade80 !important;
+}
+.auth-card .btn-primary,
+.auth-card button[type="submit"]:not(.btn-ghost):not(.btn-link) {
+  background-color: #22C55E !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 0.75rem;
+}
+.auth-card .btn-primary:hover,
+.auth-card button[type="submit"]:not(:disabled):hover {
+  background-color: #16a34a !important;
+}
+
+/* Badge padding - consistent across all badge usages */
+.badge {
+  padding: 0.35rem 0.75rem !important;
+}
+.badge.badge-sm {
+  padding: 0.25rem 0.5rem !important;
+}
+.badge.badge-lg {
+  padding: 0.5rem 1rem !important;
+}
+
 /* Sport badges - Football #22C55E, Cricket #38BDF8, Badminton #F97316, etc. (see TurfDetails SPORT_BADGE_STYLES) */

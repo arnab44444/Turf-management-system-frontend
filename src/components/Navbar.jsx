@@ -20,7 +20,7 @@ export default function Navbar() {
       <div className="navbar-start">
         <Link to="/" className="flex items-center gap-2 font-extrabold text-xl tracking-tight text-white hover:text-[#FFB703] transition-colors">
           <span className="text-2xl">⚽</span>
-          MYturf
+          Turf-Buddy
         </Link>
       </div>
       <div className="navbar-center hidden md:flex">

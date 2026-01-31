@@ -32,10 +32,10 @@ export default function Login() {
   };
 
   return (
-    <div className="card bg-base-100 shadow-2xl border border-base-200 rounded-2xl w-full">
+    <div className="card auth-card shadow-2xl w-full max-w-md mx-auto">
       <div className="card-body p-8 md:p-10">
         <h2 className="text-3xl font-extrabold text-center mb-2 text-base-content">Login</h2>
-        <p className="text-center text-sm mb-6 text-base-content/80">Welcome back to MYturf</p>
+        <p className="text-center text-sm mb-6 text-base-content/80">Welcome back to Turf-Buddy</p>
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           {error && (
             <div className="alert alert-error text-sm">
@@ -70,8 +70,7 @@ export default function Login() {
           </div>
           <button
             type="submit"
-            className="btn btn-lg font-semibold w-full mt-2"
-            style={{ backgroundColor: "#FFB703", color: "#14532D", border: "none" }}
+            className="btn btn-lg font-semibold w-full mt-2 !bg-[#22C55E] !text-white !border-0 rounded-xl"
             disabled={loading}
           >
             {loading ? "Logging in..." : "Login"}

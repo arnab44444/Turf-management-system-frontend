@@ -40,11 +40,12 @@ export default function OwnerBookings() {
     <div>
       <h2 className="text-2xl font-bold mb-6 text-base-content">Bookings</h2>
       <div className="overflow-x-auto">
-        <table className="table">
+        <table className="table table-zebra">
           <thead>
-            <tr>
+            <tr className="text-base-content">
               <th>Turf</th>
               <th>Customer</th>
+              <th>Mobile</th>
               <th>Date</th>
               <th>Time</th>
               <th>Amount</th>
@@ -56,15 +57,19 @@ export default function OwnerBookings() {
             {bookings.map((b) => {
               const section = b.turfId?.sections?.find((s) => String(s._id) === String(b.sectionId));
               return (
-              <tr key={b._id}>
+              <tr key={b._id} className="text-base-content">
                 <td>
                   <span>{b.turfId?.name}</span>
-                  {section && <span className="text-xs block opacity-70">{section.name}</span>}
+                  {section && <span className="text-xs block text-base-content/70">{section.name}</span>}
                 </td>
-                <td>{b.userId?.name} ({b.userId?.email})</td>
-                <td>{new Date(b.date).toLocaleDateString()}</td>
-                <td>{b.startTime} - {b.endTime}</td>
-                <td>৳{b.totalAmount}</td>
+                <td>
+                  <span>{b.userId?.name}</span>
+                  <span className="text-xs block text-base-content/70">{b.userId?.email}</span>
+                </td>
+                <td className="text-base-content">{b.userId?.phone || "—"}</td>
+                <td className="text-base-content">{new Date(b.date).toLocaleDateString()}</td>
+                <td className="text-base-content">{b.startTime} - {b.endTime}</td>
+                <td className="text-base-content">৳{b.totalAmount}</td>
                 <td>
                   <span className={`badge badge-${b.status === "approved" ? "success" : b.status === "pending" ? "warning" : "neutral"}`}>
                     {b.status}

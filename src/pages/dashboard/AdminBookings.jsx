@@ -13,9 +13,9 @@ export default function AdminBookings() {
       <h2 className="text-2xl font-bold mb-6 text-base-content">All Bookings</h2>
       <p className="text-base-content/60">Admin view - shows owner bookings. Expand to show all.</p>
       <div className="overflow-x-auto mt-4">
-        <table className="table">
+        <table className="table table-zebra">
           <thead>
-            <tr>
+            <tr className="text-base-content">
               <th>Turf</th>
               <th>Customer</th>
               <th>Date</th>
@@ -24,7 +24,7 @@ export default function AdminBookings() {
           </thead>
           <tbody>
             {bookings.map((b) => (
-              <tr key={b._id}>
+              <tr key={b._id} className="text-base-content">
                 <td>{b.turfId?.name}</td>
                 <td>{b.userId?.name}</td>
                 <td>{new Date(b.date).toLocaleDateString()}</td>
