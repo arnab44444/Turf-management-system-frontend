@@ -1,2 +1,121 @@
 @import "tailwindcss";
-@plugin "daisyui";
+
+@plugin "daisyui" {
+  themes: false;
+  root: ":root";
+}
+
+/* Grass / Stadium / Sporty Theme - Fresh, Lively, NO black/white-heavy */
+:root,
+[data-theme="turf-light"] {
+  color-scheme: light;
+  --color-primary: #2E7D32;
+  --color-primary-content: #ffffff;
+  --color-secondary: #E8F5E9;
+  --color-secondary-content: #14532D;
+  --color-accent: #FFB703;
+  --color-accent-content: #14532D;
+  --color-neutral: #14532D;
+  --color-neutral-content: #F1F8F4;
+  --color-base-100: #F1F8F4;
+  --color-base-200: #E8F5E9;
+  --color-base-300: #C8E6C9;
+  --color-base-content: #1F2937;
+  --color-info: #38BDF8;
+  --color-info-content: #0c4a6e;
+  --color-success: #22C55E;
+  --color-success-content: #ffffff;
+  --color-warning: #F97316;
+  --color-warning-content: #ffffff;
+  --color-error: #f87171;
+  --color-error-content: #7f1d1d;
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+}
+
+/* Stadium Night - Soft dark, still sporty */
+[data-theme="turf-dark"] {
+  color-scheme: dark;
+  --color-primary: #22C55E;
+  --color-primary-content: #052e16;
+  --color-secondary: #14532D;
+  --color-secondary-content: #dcfce7;
+  --color-accent: #FFB703;
+  --color-accent-content: #422006;
+  --color-neutral: #1e3a2f;
+  --color-neutral-content: #dcfce7;
+  --color-base-100: #0f172a;
+  --color-base-200: #1e293b;
+  --color-base-300: #334155;
+  --color-base-content: #e2e8f0;
+  --color-info: #38BDF8;
+  --color-info-content: #0c4a6e;
+  --color-success: #22C55E;
+  --color-success-content: #052e16;
+  --color-warning: #F97316;
+  --color-warning-content: #422006;
+  --color-error: #f87171;
+  --color-error-content: #7f1d1d;
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+}
+
+@layer base {
+  * {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-hover {
+  @apply transition-all duration-300 ease-out;
+}
+.card-hover:hover {
+  @apply -translate-y-1 shadow-xl;
+}
+
+/* Sport badges - Football #22C55E, Cricket #38BDF8, Badminton #F97316, etc. (see TurfDetails SPORT_BADGE_STYLES) */
